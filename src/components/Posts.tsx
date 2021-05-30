@@ -1,13 +1,29 @@
 import React from 'react';
-import {Post} from './Post'
+import {Post} from './Post';
+import {connect} from 'react-redux';
 
 interface PostsProps {
-    posts: any
+    syncPosts: [{
+        id: string,
+        title: string
+    }]
 }
 
-export const Posts: React.FC<PostsProps> = ({posts}) => {
-    if(!posts.length) {
+// @ts-ignore
+const Posts: React.FC<PostsProps> = ({syncPosts}) => {
+    console.log(typeof syncPosts)
+    console.log(syncPosts)
+    if (!syncPosts?.length) {
         return <p className='center'>Posts are not available now</p>
     }
-    return posts.map((post: number) => <Post post={post}/>)
+    return syncPosts.map((post: any) => <Post post={post.id}/>)
 }
+
+const mapStateToProps = (state: any) => {
+    console.log(state);
+    return {
+        syncPosts: state.posts.posts
+    }
+}
+
+export default connect(mapStateToProps)(Posts);

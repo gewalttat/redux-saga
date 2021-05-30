@@ -1,15 +1,19 @@
 import React from 'react';
 import {Post} from "./Post";
 
-interface FetchedPostsProps {
-    posts: any
-}
-export const FetchedPosts: React.FC<FetchedPostsProps> = ({posts}) => {
-    if(!posts.length) {
-        return <button className='btn btn-primary'>Download posts</button>
-    }
-   return posts.map((post: number) => <Post post={post}/>)
+export interface post {
+    id: string, title: string
 }
 
-export class PostForm {
+export interface FetchedPostsProps {
+    posts: post[]
+}
+
+export const FetchedPosts: React.FC<FetchedPostsProps> = ({posts}) => {
+    console.log(typeof posts)
+    if(!posts) {
+        return <button className='btn btn-primary'>Download posts</button>
+    }
+    const qq = posts.map((post: post) => <Post post={post}/>)
+   return <>{qq}</>
 }
