@@ -11,12 +11,10 @@ interface PostsProps {
 
 // @ts-ignore
 const Posts: React.FC<PostsProps> = ({syncPosts}) => {
-    console.log(typeof syncPosts)
-    console.log(syncPosts)
     if (!syncPosts?.length) {
         return <p className='center'>Posts are not available now</p>
     }
-    return syncPosts.map((post: any) => <Post post={post.id}/>)
+    return syncPosts.map((post: any) => <Post post={post.title}/>)
 }
 
 const mapStateToProps = (state: any) => {

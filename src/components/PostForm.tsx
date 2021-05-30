@@ -12,18 +12,22 @@ class PostForm extends React.Component<any, any> {
 
     submitHandler = (event: React.SyntheticEvent) => {
         event.preventDefault()
-        const {title} = this.state;
+        const { title } = this.state;
+        if (!title.trim()) {
+            return null;
+        }
         const newPost = {
             title, id: Date.now().toString()
         };
         this.props.createPosts(newPost);
-        this.setState({title: ''})
+        this.setState({ title: '' })
     };
 
     changeInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.persist();
-        this.setState((prev: any) => ({...prev,
-            ...{[event.target.name]: event.target.value}
+        this.setState((prev: any) => ({
+            ...prev,
+            ...{ [event.target.name]: event.target.value }
         }));
     };
 
@@ -38,7 +42,7 @@ class PostForm extends React.Component<any, any> {
                         id='title'
                         value={this.state.title}
                         name='title'
-                        onChange={this.changeInputHandler}/>
+                        onChange={this.changeInputHandler} />
                 </div>
                 <button className='btn btn-success' type='submit'>Create</button>
             </form>
